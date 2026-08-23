@@ -1,4 +1,4 @@
-from Infrastructure.Terminal.Output.base import OutputPolicy
+from Application.Output.OutputPolicy import OutputPolicy
 # Architecture: Quiet terminal output adapter.
 # Layer: Infrastructure.Terminal.
 # Role: Suppresses normal result text while retaining error output.

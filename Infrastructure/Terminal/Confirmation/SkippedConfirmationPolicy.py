@@ -1,8 +1,8 @@
 from typing import Any
 
+from Application.Confirmation.ConfirmaitonPolicy import ConfirmationPolicy
 from Application.Delete.DeleteRequest import DeleteOptions
 from Application.Presenters.PreviewFormatter import PreviewFormatter
-from Infrastructure.Terminal.Confirmation.base import ConfirmationPolicy
 
 
 # Architecture: Non-interactive confirmation adapter.

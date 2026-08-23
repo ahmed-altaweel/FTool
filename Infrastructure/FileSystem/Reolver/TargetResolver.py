@@ -1,10 +1,11 @@
 from pathlib import Path
 
+from Application.Common.TargetResolverPort import TargetResolverPort
 from Infrastructure.FileSystem.Reolver.PatternResolver import PatternResolver
 # Architecture: Delete-target resolution service.
 # Layer: Infrastructure.FileSystem.
 # Role: Builds direct or recursive patterns and delegates matching to PatternResolver.
-class TargetResolver:
+class TargetResolver(TargetResolverPort):
     def __init__(self, pattern_resolver: PatternResolver) -> None:
         self.pattern_resolver: PatternResolver = pattern_resolver
     def resolve(self, path: str | Path, recursive_search: bool) -> list[str]:

@@ -1,4 +1,5 @@
 from Application.Common.CommandStatus import CommandStatus
+from Application.Confirmation.ConfirmaitonPolicy import ConfirmationPolicy
 from Application.Delete.DeleteExecutionStrategy.DryRunDeleteExecutor import DryRunDeleteExecutor
 from Application.Delete.DeleteExecutionStrategy.RealDeleteExecutor import RealDeleteExecutor
 from Application.Delete.DeleteExecutionStrategy.base import DeleteExecutorStrategy
@@ -12,7 +13,7 @@ from Application.Presenters.PreviewFormatter import PreviewFormatter
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 from Infrastructure.Terminal.Confirmation.RequiredConfirmationPolicy import RequiredConfirmationPolicy
 from Infrastructure.Terminal.Confirmation.SkippedConfirmationPolicy import SkippedConfirmationPolicy
-from Infrastructure.Terminal.Confirmation.base import ConfirmationPolicy
+
 # Architecture: Delete use-case coordinator.
 # Layer: Application.Delete.
 # Role: Performs validation, confirmation, strategy/mode selection, and result construction.
@@ -24,11 +25,18 @@ class DeleteExecutor:
         preview_formatter: PreviewFormatter,
         validator: DeleteValidator,
         trash_delete_mode: TrashDeleteMode,
+       permananent_delete_mode:PermanentDeleteMode,
+       required_confirmation_policy:RequiredConfirmationPolicy,
+       skipped_confirmation_policy:SkippedConfirmationPolicy
     ) -> None:
         self.delete_handlers: list[TargetDeleteHandler] = delete_handlers
         self.preview_formatter: PreviewFormatter = preview_formatter
         self.validator: DeleteValidator = validator
         self.trash_delete_mode: TrashDeleteMode = trash_delete_mode
+        self.permananent_delete_mode:PermanentDeleteMode=permananent_delete_mode
+        self.required_confirmation_policy:RequiredConfirmationPolicy=required_confirmation_policy
+        self.skipped_confirmation_policy:SkippedConfirmationPolicy=skipped_confirmation_policy
+    
     def execute(self, path: str, paths: list[str], options: DeleteOptions) -> DeleteResult:
 
         if len(paths) <=0:
@@ -57,7 +65,7 @@ class DeleteExecutor:
         return delete_executor
 
     def select_delete_mode(self, options: DeleteOptions) -> DeleteMode:
-        delete_mode: DeleteMode = PermanentDeleteMode()
+        delete_mode: DeleteMode = self.permananent_delete_mode
 
         if not options.final_delete:
             delete_mode = self.trash_delete_mode
@@ -65,7 +73,7 @@ class DeleteExecutor:
         return delete_mode
     
     def confirm(self, options: DeleteOptions, paths: list[str]) -> bool:
-        confirm: ConfirmationPolicy = RequiredConfirmationPolicy()
+        confirm: ConfirmationPolicy =self.required_confirmation_policy
         if options.force:
-            confirm=SkippedConfirmationPolicy()
+            confirm=self.skipped_confirmation_policy
         return confirm.confirm(paths,options,self.preview_formatter)

@@ -2,11 +2,12 @@ import argparse
 
 from Application.Common.CommandStatus import CommandStatus
 from Application.Common.Dispatcher import Dispatcher
+from Application.Common.RequestFactoryPrort import RequestFactoryPort
 from Application.Delete.DeleteRequest import DeleteRequest
 from Application.Delete.DeleteResult import DeleteResult
 from Application.Output.OutputPolicyResolver import OutputPolicyResolver
 from Application.Presenters.ResultPresenter import ResultPresenter
-from Presentation.CLI.Request.RequestFactory import RequestFactory
+
 
 
 # Architecture: Application orchestration boundary.
@@ -16,12 +17,12 @@ class Application:
     def __init__(
         self,
         dispatcher: Dispatcher,
-        request_factory: RequestFactory,
+        request_factory: RequestFactoryPort,
         presenter: ResultPresenter,
         output_policy_resolver: OutputPolicyResolver,
     ) -> None:
         self.dispatcher: Dispatcher = dispatcher
-        self.request_factory: RequestFactory = request_factory
+        self.request_factory: RequestFactoryPort = request_factory
         self.presenter: ResultPresenter = presenter
         self.output_policy_resolver: OutputPolicyResolver = output_policy_resolver
 

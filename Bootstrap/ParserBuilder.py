@@ -3,14 +3,9 @@ from __future__ import annotations
 import argparse
 from typing import Protocol, TypeAlias
 
+from Presentation.CLI.Parsers.ParserCommandBuilder import ParserCommandBuilder, Subparsers
 
-Subparsers: TypeAlias = "argparse._SubParsersAction[argparse.ArgumentParser]"
 
-
-class ParserCommandBuilder(Protocol):
-    @staticmethod
-    def build(commands: Subparsers) -> None:
-        ...
 
 
 # Architecture: CLI parser composition helper.

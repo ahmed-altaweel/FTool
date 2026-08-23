@@ -3,7 +3,7 @@ from datetime import datetime
 from Application.Delete.DeleteModes.base import DeleteMode
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 from Domain.Trash.TrashEntry import TrashEntry
-from Domain.Trash.base import TrashRegistry
+from Domain.Trash.TrashRegistry import TrashRegistry
 
 
 # Architecture: Trash-delete mode.
