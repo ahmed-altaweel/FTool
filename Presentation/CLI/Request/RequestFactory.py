@@ -2,6 +2,7 @@ import argparse
 from collections.abc import Callable
 from typing import TypeVar
 
+from Application.Common.RequestFactoryPrort import RequestFactoryPort
 from Application.Delete.DeleteRequest import DeleteRequest
 from Application.Common.Request import CommandRequest
 from Presentation.CLI.Request.RequestCreator.base import RequestCreator
@@ -10,7 +11,7 @@ from Presentation.CLI.Request.RequestCreator.base import RequestCreator
 # Architecture: CLI request-factory registry.
 # Layer: Presentation.CLI.
 # Role: Maps command names to request creators and invokes the selected creator.
-class RequestFactory:
+class RequestFactory(RequestFactoryPort):
     def __init__(self) -> None:
         self.factories: dict[str, RequestCreator] = {}
 

@@ -8,9 +8,7 @@ from Domain.Trash.TrashEntry import TrashEntry
 # Role: Defines recording, restoring, listing, and initialization of TrashEntry records.
 # Implementations: JsonTrashRegistry.
 class TrashRegistry(ABC):
-    def __init__(self, registry_file: str) -> None:
-        self.registry_file: str = registry_file
-        self._ensure_file_exists()
+   
     @abstractmethod
     def record(self,entry:TrashEntry) ->None:
         ...
@@ -20,6 +18,4 @@ class TrashRegistry(ABC):
     @abstractmethod
     def list_entries(self) -> list[TrashEntry]:
         ...
-    @abstractmethod
-    def _ensure_file_exists(self)->None:
-        ...
+ 

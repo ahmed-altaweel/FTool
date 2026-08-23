@@ -37,14 +37,14 @@ class _HandlerAdapter(Generic[RequestT, ResultT]):
 # Role: Routes a request to the handler registered for its concrete type.
 class Dispatcher:
     def __init__(self) -> None:
-        self.handlers: dict[type[object], CommandHandler[RequestT,ResultT]] = {}
+        self.handlers: dict[CommandRequest[object], CommandHandler[RequestT,ResultT]] = {}
 
     def register(
         self,
         request_type: type[RequestT],
         handler: CommandHandler[RequestT, ResultT],
     ) -> None:
-        self.handlers[request_type] = _HandlerAdapter(request_type, handler)
+        self.handlers[request_type] = handler
 
     def dispatch(self, request: CommandRequest[object]) -> object:
         handler = self.handlers.get(type(request))

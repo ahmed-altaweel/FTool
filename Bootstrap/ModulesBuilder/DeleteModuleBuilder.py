@@ -1,6 +1,7 @@
 from Application.Common.Dispatcher import Dispatcher
 from Application.Delete.DeleteExecutor import DeleteExecutor
 from Application.Delete.DeleteHandler import DeleteHandler
+from Application.Delete.DeleteModes.PermanentDeleteMode import PermanentDeleteMode
 from Application.Delete.DeleteModes.TrashDeleteMode import TrashDeleteMode
 from Application.Delete.DeleteRequest import DeleteRequest
 from Application.Delete.DeleteResult import CommandResult, DeleteResult
@@ -12,6 +13,8 @@ from Infrastructure.FileSystem.Reolver.PatternResolver import PatternResolver
 from Infrastructure.FileSystem.Reolver.TargetResolver import TargetResolver
 from Infrastructure.FileSystem.TargetHandler.FileTargetDeleteHandler import FileTargetDeleteHandler
 from Infrastructure.FileSystem.TargetHandler.FolderTargetDeleteHandler import FolderTargetDeleteHandler
+from Infrastructure.Terminal.Confirmation.RequiredConfirmationPolicy import RequiredConfirmationPolicy
+from Infrastructure.Terminal.Confirmation.SkippedConfirmationPolicy import SkippedConfirmationPolicy
 from Infrastructure.Trash.JsonTrashRegistry import JsonTrashRegistry
 from Presentation.CLI.Formatters.DeletePreviewFormatter import DeletePreviewFormatter
 from Presentation.CLI.Formatters.DeleteResultFormatter import DeleteResultFormatter
@@ -47,6 +50,9 @@ class DeleteModuleBuilder(ModuleBuilder):
             preview_formatter,
             validator,
             trash_mode,
+            PermanentDeleteMode(),
+            RequiredConfirmationPolicy(),
+            SkippedConfirmationPolicy()
         )
         handler = DeleteHandler(target_resolver, delete_executor)
         dispatcher.register(DeleteRequest, handler)

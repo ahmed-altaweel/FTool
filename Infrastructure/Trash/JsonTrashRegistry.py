@@ -7,7 +7,7 @@ import tempfile
 from typing import TypedDict, TypeGuard, cast
 
 from Domain.Trash.TrashEntry import TrashEntry
-from Domain.Trash.base import TrashRegistry
+from Domain.Trash.TrashRegistry import TrashRegistry
 from Domain.Trash.TrashRecord import TrashRecord
 
 
@@ -20,6 +20,9 @@ from Domain.Trash.TrashRecord import TrashRecord
 # Role: Persists TrashEntry records using JSON and temporary-file replacement.
 # Contract: TrashRegistry.
 class JsonTrashRegistry(TrashRegistry):
+    def __init__(self, registry_file: str) -> None:
+        self.registry_file: str = registry_file
+        self._ensure_file_exists()
     def record(self, entry: TrashEntry) -> None:
         entries = self._read()
         entries.append(self._entry_to_dict(entry))

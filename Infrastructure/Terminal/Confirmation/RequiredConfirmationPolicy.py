@@ -1,8 +1,9 @@
 from typing import Any
 
+from Application.Confirmation.ConfirmaitonPolicy import ConfirmationPolicy
 from Application.Delete.DeleteRequest import DeleteOptions
 from Application.Presenters.PreviewFormatter import PreviewFormatter
-from Infrastructure.Terminal.Confirmation.base import ConfirmationPolicy
+
 # Architecture: Interactive confirmation adapter.
 # Layer: Infrastructure.Terminal.
 # Role: Presents the delete preview and accepts an affirmative terminal response.

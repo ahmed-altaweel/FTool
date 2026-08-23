@@ -2,9 +2,14 @@ from __future__ import annotations
 
 from typing import Protocol
 
+from Application.Application import Application
 from Application.Common.Dispatcher import Dispatcher
 from Application.Delete.DeleteResult import DeleteResult
 from Application.Presenters.ResultFormatter import ResultFormatter
+from Infrastructure.Terminal.Output.NormalOutputPolicy import NormalOutputPolicy
+from Infrastructure.Terminal.Output.QuietOutputPolicy import QuietOutputPolicy
+from Infrastructure.Terminal.Output.TerminalOutputPolicyResolver import TerminalOutputPolicyResolver
+from Presentation.CLI.Presenters.CliResultPresenter import CliResultPresenter
 from Presentation.CLI.Request.RequestFactory import RequestFactory
 from Application.Common.ModuleBuilder import ModuleBuilder
 from Application.Common.Result import CommandResult
@@ -29,5 +34,15 @@ class ApplicationBuilder:
         module.build(self.dispatcher, self.request_factory, self.formatters)
         return self
 
-    def build(self) -> Dispatcher:
-        return self.dispatcher
+    def build(self) -> Application:
+        presenter = CliResultPresenter(self.formatters)
+        output_resolver = TerminalOutputPolicyResolver(
+        normal=NormalOutputPolicy(),
+        quiet=QuietOutputPolicy(),
+    )
+        return  Application(
+        self.dispatcher,
+        self.request_factory,
+        presenter,
+        output_resolver,
+    )
