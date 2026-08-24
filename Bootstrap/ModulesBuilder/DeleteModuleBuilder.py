@@ -15,6 +15,7 @@ from Infrastructure.FileSystem.TargetHandler.FileTargetDeleteHandler import File
 from Infrastructure.FileSystem.TargetHandler.FolderTargetDeleteHandler import FolderTargetDeleteHandler
 from Infrastructure.Terminal.Confirmation.RequiredConfirmationPolicy import RequiredConfirmationPolicy
 from Infrastructure.Terminal.Confirmation.SkippedConfirmationPolicy import SkippedConfirmationPolicy
+from Infrastructure.Terminal.IOStream import IOStream
 from Infrastructure.Trash.JsonTrashRegistry import JsonTrashRegistry
 from Presentation.CLI.Formatters.DeletePreviewFormatter import DeletePreviewFormatter
 from Presentation.CLI.Formatters.DeleteResultFormatter import DeleteResultFormatter
@@ -43,6 +44,7 @@ class DeleteModuleBuilder(ModuleBuilder):
         json_trash_registry = JsonTrashRegistry(
             "C:\\trash_registry\\trash_registry.json"
         )
+        io_stream=IOStream()
         trash_mode = TrashDeleteMode(json_trash_registry)
         validator = DeleteValidator(fs_inspector)
         delete_executor = DeleteExecutor(
@@ -51,8 +53,8 @@ class DeleteModuleBuilder(ModuleBuilder):
             validator,
             trash_mode,
             PermanentDeleteMode(),
-            RequiredConfirmationPolicy(),
-            SkippedConfirmationPolicy()
+            RequiredConfirmationPolicy(io_stream),
+            SkippedConfirmationPolicy(io_stream)
         )
         handler = DeleteHandler(target_resolver, delete_executor)
         dispatcher.register(DeleteRequest, handler)

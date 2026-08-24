@@ -3,6 +3,7 @@ from typing import Any
 
 from Application.Delete.DeleteRequest import DeleteOptions
 from Application.Presenters.PreviewFormatter import PreviewFormatter
+from Infrastructure.Terminal.IOStream import IOStream
 
 
 # Architecture: Confirmation policy contract.
@@ -10,7 +11,8 @@ from Application.Presenters.PreviewFormatter import PreviewFormatter
 # Role: Abstracts whether a delete operation is accepted by the user or execution mode.
 # Implementations: RequiredConfirmationPolicy, SkippedConfirmationPolicy.
 class ConfirmationPolicy(ABC):
-    @abstractmethod
+    def __init__(self,io_stream:IOStream):
+        self.io_stream=io_stream
     def confirm(
         self,
         paths: list[str],

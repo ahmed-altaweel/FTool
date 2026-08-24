@@ -7,4 +7,4 @@ class QuietOutputPolicy(OutputPolicy):
     def print_result(self, text: str) -> None:
         return
     def print_error(self, text: str) -> None:
-        print(text)
+        self.io_stream.print_text(text)
