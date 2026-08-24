@@ -11,5 +11,5 @@ from Application.Presenters.PreviewFormatter import PreviewFormatter
 class RequiredConfirmationPolicy(ConfirmationPolicy):
     def confirm(self, paths: list[str], options: Any, preview_formatter: PreviewFormatter) -> bool:
         preview = preview_formatter.format(paths, options)
-        print(preview)
-        return input("Are you sure?[Y/N]").strip().upper()=='Y'
+        self.io_stream.print_text(preview)
+        return self.io_stream.read_text().upper()=='Y'

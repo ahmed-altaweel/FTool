@@ -6,6 +6,7 @@ from Application.Application import Application
 from Application.Common.Dispatcher import Dispatcher
 from Application.Delete.DeleteResult import DeleteResult
 from Application.Presenters.ResultFormatter import ResultFormatter
+from Infrastructure.Terminal.IOStream import IOStream
 from Infrastructure.Terminal.Output.NormalOutputPolicy import NormalOutputPolicy
 from Infrastructure.Terminal.Output.QuietOutputPolicy import QuietOutputPolicy
 from Infrastructure.Terminal.Output.TerminalOutputPolicyResolver import TerminalOutputPolicyResolver
@@ -36,9 +37,10 @@ class ApplicationBuilder:
 
     def build(self) -> Application:
         presenter = CliResultPresenter(self.formatters)
+        io_stream=IOStream()
         output_resolver = TerminalOutputPolicyResolver(
-        normal=NormalOutputPolicy(),
-        quiet=QuietOutputPolicy(),
+        normal=NormalOutputPolicy(io_stream),
+        quiet=QuietOutputPolicy(io_stream),
     )
         return  Application(
         self.dispatcher,
