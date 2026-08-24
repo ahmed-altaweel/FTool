@@ -1,3 +1,4 @@
+from pathlib import Path
 from typing import Any
 
 from Application.Confirmation.ConfirmaitonPolicy import ConfirmationPolicy
@@ -12,7 +13,7 @@ from Application.Presenters.PreviewFormatter import PreviewFormatter
 class SkippedConfirmationPolicy(ConfirmationPolicy):
     def confirm(
         self,
-        paths: list[str],
+        paths: list[Path],
         options: Any,
         preview_formatter: PreviewFormatter,
     ) -> bool:

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from Application.Delete.DeleteModes.base import DeleteMode
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 
@@ -7,5 +9,5 @@ from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 # Role: Delegates final deletion to the selected target handler.
 # Contract: DeleteMode.
 class PermanentDeleteMode(DeleteMode):
-    def execute(self, path: str, target_handler: TargetDeleteHandler) -> None:
+    def execute(self, path: Path, target_handler: TargetDeleteHandler) -> None:
         target_handler.delete(path)

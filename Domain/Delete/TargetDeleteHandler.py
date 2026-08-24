@@ -1,4 +1,7 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
+
+from Infrastructure.Trash import MoveToTrash
 
 
 # Architecture: Target deletion capability contract.
@@ -6,19 +9,19 @@ from abc import ABC, abstractmethod
 # Role: Defines how a supported target is detected, deleted, or moved to trash.
 # Implementations: FileTargetDeleteHandler, FolderTargetDeleteHandler.
 class TargetDeleteHandler(ABC):
-    def __init__(self, trash_folder: str) -> None:
-        self.trash_folder: str = trash_folder
+    def __init__(self, move_to_trash: MoveToTrash) -> None:
+        self.move_to_trash: MoveToTrash = move_to_trash
 
     @abstractmethod
-    def can_handle(self, path: str) -> bool:
+    def can_handle(self, path: Path) -> bool:
         ...
 
     @abstractmethod
-    def delete(self, path: str) -> None:
+    def delete(self, path: Path) -> None:
         """Permanently delete the target."""
         ...
 
     @abstractmethod
-    def delete_to_trash(self, path: str) -> str:
+    def delete_to_trash(self, path: Path) -> Path:
         """Move the target into the configured trash folder."""
         ...

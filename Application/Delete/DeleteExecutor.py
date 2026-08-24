@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from Application.Common.CommandStatus import CommandStatus
 from Application.Confirmation.ConfirmaitonPolicy import ConfirmationPolicy
 from Application.Delete.DeleteExecutionStrategy.DryRunDeleteExecutor import DryRunDeleteExecutor
@@ -37,7 +39,7 @@ class DeleteExecutor:
         self.required_confirmation_policy:RequiredConfirmationPolicy=required_confirmation_policy
         self.skipped_confirmation_policy:SkippedConfirmationPolicy=skipped_confirmation_policy
     
-    def execute(self, path: str, paths: list[str], options: DeleteOptions) -> DeleteResult:
+    def execute(self, path: Path, paths: list[Path], options: DeleteOptions) -> DeleteResult:
 
         if len(paths) <=0:
             return DeleteResult(CommandStatus.NOT_FOUND,paths=[],error_path=path)
@@ -72,7 +74,7 @@ class DeleteExecutor:
 
         return delete_mode
     
-    def confirm(self, options: DeleteOptions, paths: list[str]) -> bool:
+    def confirm(self, options: DeleteOptions, paths: list[Path]) -> bool:
         confirm: ConfirmationPolicy =self.required_confirmation_policy
         if options.force:
             confirm=self.skipped_confirmation_policy

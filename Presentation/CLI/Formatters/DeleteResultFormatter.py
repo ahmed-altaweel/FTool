@@ -47,7 +47,7 @@ class DeleteResultFormatter(ResultFormatter[DeleteResult]):
                     lines.append(
                         "Error : The following are directories, but --delete-folder was not specified:"
                     )
-                    lines += [f" - {p}" for p in violation.paths]
+                    lines += [f" - {str(p)}" for p in violation.paths]
             lines.append("===========================================")
             return "\n".join(lines)
         

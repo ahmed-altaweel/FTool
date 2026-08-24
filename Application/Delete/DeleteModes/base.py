@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 
@@ -9,5 +10,5 @@ from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 # Implementations: PermanentDeleteMode, TrashDeleteMode.
 class DeleteMode(ABC):
     @abstractmethod
-    def execute(self, path: str, target_handler: TargetDeleteHandler) -> str | None:
+    def execute(self, path: Path, target_handler: TargetDeleteHandler) -> str | None:
         ...

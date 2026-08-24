@@ -4,5 +4,5 @@ from pathlib import Path
 # Layer: Infrastructure.FileSystem.
 # Role: Resolves a path or glob pattern into matching string paths.
 class PatternResolver:
-    def resolve(self, path: str | Path, recursive: bool) -> list[str]:
-       return glob.glob(str(path),recursive=recursive)
+    def resolve(self, base_dir: Path ,pattern:str, recursive: bool) -> list[Path]:
+       return list(base_dir.rglob(pattern)) if recursive else list(base_dir.glob(pattern))

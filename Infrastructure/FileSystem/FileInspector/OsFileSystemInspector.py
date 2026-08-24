@@ -1,4 +1,5 @@
 import os
+from pathlib import Path
 
 from Application.Common.FileSystemInspector import FileSystemInspector
 
@@ -8,5 +9,5 @@ from Application.Common.FileSystemInspector import FileSystemInspector
 # Role: Implements directory inspection using the host operating system.
 # Contract: FileSystemInspector.
 class OsFileSystemInspector(FileSystemInspector):
-    def is_directory(self, path: str) -> bool:
-        return os.path.isdir(path)
+    def is_directory(self, path: Path) -> bool:
+        return path.is_dir()

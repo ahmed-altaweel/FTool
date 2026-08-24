@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
 from typing import Any
 
 from Application.Delete.DeleteRequest import DeleteOptions
@@ -15,7 +16,7 @@ class ConfirmationPolicy(ABC):
         self.io_stream=io_stream
     def confirm(
         self,
-        paths: list[str],
+        paths: list[Path],
         options: Any,
         preview_formatter: PreviewFormatter,
     ) -> bool:

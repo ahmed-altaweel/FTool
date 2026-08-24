@@ -8,18 +8,15 @@ from Infrastructure.FileSystem.Reolver.PatternResolver import PatternResolver
 class TargetResolver(TargetResolverPort):
     def __init__(self, pattern_resolver: PatternResolver) -> None:
         self.pattern_resolver: PatternResolver = pattern_resolver
-    def resolve(self, path: str | Path, recursive_search: bool) -> list[str]:
+    def resolve(self, path: str | Path, recursive_search: bool) -> list[Path]:
         path=Path(path)
         base_dir=path.parent
-        target=path.name
+        pattern=path.name
         if base_dir== Path(""):
             base_dir=Path(".")
-        if recursive_search:
-            pattern=base_dir/"**"/target
-            return self.pattern_resolver.resolve(pattern,recursive=recursive_search)
+        return self.pattern_resolver.resolve(base_dir,pattern,recursive=recursive_search)
         # elif any(c in str(path) for c in "*?["):
         #     return self.pattern_resolver.resolve(path,recursive=recursive_search)
-        else:
-            return self.pattern_resolver.resolve(path,recursive=recursive_search)
+      
     
         

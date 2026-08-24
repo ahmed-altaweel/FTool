@@ -1,5 +1,6 @@
 
 from dataclasses import dataclass
+from pathlib import Path
 
 from Application.Common.FileSystemInspector import FileSystemInspector
 from Application.Delete.DeleteRequest import DeleteOptions
@@ -11,14 +12,14 @@ from Application.Delete.DeleteRequest import DeleteOptions
 # Role: Describes why a collection of delete targets was rejected.
 class DeleteValidationError:
     reason:str
-    paths: list[str]
+    paths: list[Path]
 # Architecture: Delete-input validation service.
 # Layer: Application.Delete.
 # Role: Applies delete-folder policy using the FileSystemInspector contract.
 class DeleteValidator:
     def __init__(self, fs_inspector: FileSystemInspector) -> None:
         self.fs_inspector: FileSystemInspector = fs_inspector
-    def validate(self, paths: list[str], options: DeleteOptions) -> list[DeleteValidationError]:
+    def validate(self, paths: list[Path], options: DeleteOptions) -> list[DeleteValidationError]:
         if options.delete_folder:
             return []
         folder_paths=[p for p in paths if self.fs_inspector.is_directory(p)]

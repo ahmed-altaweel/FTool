@@ -1,4 +1,5 @@
 from abc import ABC, abstractmethod
+from pathlib import Path
 
 from Application.Delete.DeleteModes.base import DeleteMode
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
@@ -13,5 +14,5 @@ class DeleteExecutorStrategy(ABC):
         self.delete_handlers: list[TargetDeleteHandler] = delete_handlers
 
     @abstractmethod
-    def execute(self, paths: list[str], delete_mode: DeleteMode) -> None:
+    def execute(self, paths: list[Path], delete_mode: DeleteMode) -> None:
         ...
