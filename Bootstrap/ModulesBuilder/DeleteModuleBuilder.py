@@ -16,7 +16,9 @@ from Infrastructure.FileSystem.TargetHandler.FolderTargetDeleteHandler import Fo
 from Infrastructure.Terminal.Confirmation.RequiredConfirmationPolicy import RequiredConfirmationPolicy
 from Infrastructure.Terminal.Confirmation.SkippedConfirmationPolicy import SkippedConfirmationPolicy
 from Infrastructure.Terminal.IOStream import IOStream
+from Infrastructure.Trash.MoveToTrash import MoveToTrash
 from Infrastructure.Trash.JsonTrashRegistry import JsonTrashRegistry
+from Infrastructure.Trash.TrashPath import TrashPath
 from Presentation.CLI.Formatters.DeletePreviewFormatter import DeletePreviewFormatter
 from Presentation.CLI.Formatters.DeleteResultFormatter import DeleteResultFormatter
 from Presentation.CLI.Request.RequestFactory import RequestFactory
@@ -34,15 +36,19 @@ class DeleteModuleBuilder(ModuleBuilder):
         request_factory: RequestFactory,
         formatters: dict[type[CommandResult], ResultFormatter],
     ) -> None:
+        print("start")
+        trash_path=TrashPath()
+        print(f"Trash_path{trash_path}")
+        move_to_trash=MoveToTrash(trash_path.entries_path)
         target_handlers: list[TargetDeleteHandler] = [
-            FileTargetDeleteHandler("C:\\trash"),
-            FolderTargetDeleteHandler("C:\\trash"),
+            FileTargetDeleteHandler(move_to_trash),
+            FolderTargetDeleteHandler(move_to_trash),
         ]
         target_resolver = TargetResolver(PatternResolver())
         preview_formatter = DeletePreviewFormatter()
         fs_inspector = OsFileSystemInspector()
         json_trash_registry = JsonTrashRegistry(
-            "C:\\trash_registry\\trash_registry.json"
+            trash_path.trash_registry_path
         )
         io_stream=IOStream()
         trash_mode = TrashDeleteMode(json_trash_registry)

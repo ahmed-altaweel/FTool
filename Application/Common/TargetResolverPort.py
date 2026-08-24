@@ -4,5 +4,5 @@ from pathlib import Path
 
 class TargetResolverPort(ABC):
     @abstractmethod
-    def resolve(self, path: str | Path, recursive_search: bool) -> list[str]:
+    def resolve(self, path: Path | Path, recursive_search: bool) -> list[str]:
         ...

@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from Application.Delete.DeleteRequest import DeleteOptions
 from Application.Presenters.PreviewFormatter import PreviewFormatter
 
@@ -7,7 +9,7 @@ from Application.Presenters.PreviewFormatter import PreviewFormatter
 # Role: Renders targets and delete options for interactive confirmation.
 # Contract: PreviewFormatter.
 class DeletePreviewFormatter(PreviewFormatter[DeleteOptions]):
-    def format(self, paths: list[str], options: DeleteOptions) -> str:
+    def format(self, paths: list[Path], options: DeleteOptions) -> str:
         execution = "SIMULATION" if options.dry_run else "Real"
         destination = "Permanent deletion" if options.final_delete else "Trash"
 
@@ -20,6 +22,6 @@ class DeletePreviewFormatter(PreviewFormatter[DeleteOptions]):
             "",
             "Files:",
         ]
-        lines += [f" - {p}" for p in paths]
+        lines += [f" - {str(p)}" for p in paths]
         lines.append("=========================================")
         return "\n".join(lines)

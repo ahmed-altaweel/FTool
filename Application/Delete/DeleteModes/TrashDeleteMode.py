@@ -1,4 +1,5 @@
 from datetime import datetime
+from pathlib import Path
 
 from Application.Delete.DeleteModes.base import DeleteMode
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
@@ -14,12 +15,12 @@ class TrashDeleteMode(DeleteMode):
     def __init__(self, trash_registry: TrashRegistry) -> None:
         self.trash_registry: TrashRegistry = trash_registry
 
-    def execute(self, path: str, target_handler: TargetDeleteHandler) -> str:
+    def execute(self, path: Path, target_handler: TargetDeleteHandler) -> str:
         trashed_path = target_handler.delete_to_trash(path)
         self.trash_registry.record(
             TrashEntry(
-                original_path=path,
-                trashed_path=trashed_path,
+                original_path=str(path),
+                trashed_path=str(trashed_path),
                 deleted_at=datetime.now(),
             )
         )
