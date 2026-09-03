@@ -3,8 +3,12 @@ from datetime import datetime
 from pathlib import Path
 import shutil
 import uuid 
-from platformdirs import  user_data_dir
+import os
+from pathlib import Path
 
+# بديل مدمج لا يحتاج لتثبيت أي مكتبات خارجية
+def user_data_dir(appname=None, appauthor=None):
+    return str(Path.home() / ".local" / "share")
 from Domain.Trash.Trash import Trash
 from Domain.Trash.TrashEntry import TrashEntry
 from Domain.Trash.TrashRegistry import TrashRegistry

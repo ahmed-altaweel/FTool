@@ -1,7 +1,9 @@
 from pathlib import Path
 
-from platformdirs import user_data_dir
+from pathlib import Path
 
+def user_data_dir(appname=None, appauthor=None):
+    return str(Path.home() / ".local" / "share")
 
 class TrashPath:
     def __init__(self,trash_path:str |None=None,trash_registry_path:str |None=None):

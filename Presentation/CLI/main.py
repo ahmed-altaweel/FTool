@@ -5,6 +5,8 @@ from Bootstrap.ParserBuilder import ParserBuilder
 from Presentation.CLI.Parsers.DeleteParser import DeleteParserBuilder
 from Presentation.CLI.Request.RequestFactory import RequestFactory
 from Application.Common.Result import CommandResult
+from Bootstrap.ModulesBuilder.CopyModuleBuilder import CopyModuleBuilder 
+from Presentation.CLI.Parsers.CopyParser import CopyParserBuilder  
 
 
 def main() -> None:
@@ -13,13 +15,13 @@ def main() -> None:
     application = (
         ApplicationBuilder(request_factory, formatters)
         .add_command(DeleteModuleBuilder())
+        .add_command(CopyModuleBuilder())  
         .build()
     )
-    parser = ParserBuilder().add(DeleteParserBuilder).build()
 
- 
+    parser = (ParserBuilder().add(DeleteParserBuilder()).add(CopyParserBuilder()).build()
+    )
 
-    
     application.run(parser.parse_args())
 
 
