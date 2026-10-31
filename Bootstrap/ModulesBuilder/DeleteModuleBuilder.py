@@ -9,8 +9,8 @@ from Application.Delete.DeleteValidator import DeleteValidator
 from Application.Presenters.ResultFormatter import ResultFormatter
 from Domain.Delete.TargetDeleteHandler import TargetDeleteHandler
 from Infrastructure.FileSystem.FileInspector.OsFileSystemInspector import OsFileSystemInspector
-from Infrastructure.FileSystem.Reolver.PatternResolver import PatternResolver
-from Infrastructure.FileSystem.Reolver.TargetResolver import TargetResolver
+from Infrastructure.FileSystem.Resolver.PatternResolver import PatternResolver
+from Infrastructure.FileSystem.Resolver.TargetResolver import TargetResolver
 from Infrastructure.FileSystem.TargetHandler.FileTargetDeleteHandler import FileTargetDeleteHandler
 from Infrastructure.FileSystem.TargetHandler.FolderTargetDeleteHandler import FolderTargetDeleteHandler
 from Infrastructure.Terminal.Confirmation.RequiredConfirmationPolicy import RequiredConfirmationPolicy
@@ -36,9 +36,7 @@ class DeleteModuleBuilder(ModuleBuilder):
         request_factory: RequestFactory,
         formatters: dict[type[CommandResult], ResultFormatter],
     ) -> None:
-        print("start")
         trash_path=TrashPath()
-        print(f"Trash_path{trash_path}")
         move_to_trash=MoveToTrash(trash_path.entries_path)
         target_handlers: list[TargetDeleteHandler] = [
             FileTargetDeleteHandler(move_to_trash),

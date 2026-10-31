@@ -4,7 +4,16 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "ftool"
-version = "0.1.0"
+version = "0.2.0"
+description = "File tool: safe delete (trash), ZIP/RAR archive and extract"
+requires-python = ">=3.10"
+dependencies = [
+    "platformdirs>=3",
+]
+
+[project.optional-dependencies]
+# Needed only to READ .rar files (also requires WinRAR/unrar/7-Zip on the system)
+rar = ["rarfile>=4.0"]
 
 [project.scripts]
 ftool = "Presentation.CLI.main:main"
