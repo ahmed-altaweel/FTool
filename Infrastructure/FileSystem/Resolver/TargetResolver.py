@@ -1,7 +1,7 @@
 from pathlib import Path
 
 from Application.Common.TargetResolverPort import TargetResolverPort
-from Infrastructure.FileSystem.Reolver.PatternResolver import PatternResolver
+from Infrastructure.FileSystem.Resolver.PatternResolver import PatternResolver
 # Architecture: Delete-target resolution service.
 # Layer: Infrastructure.FileSystem.
 # Role: Builds direct or recursive patterns and delegates matching to PatternResolver.

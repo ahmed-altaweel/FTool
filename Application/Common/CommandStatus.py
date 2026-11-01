@@ -1,5 +1,6 @@
 from enum import Enum, auto
 
+
 # Architecture: Command outcome enumeration.
 # Layer: Application.Common.
 # Role: Provides stable statuses consumed by use cases and presenters.
@@ -7,4 +8,13 @@ class CommandStatus(Enum):
     SUCCESS = auto()
     CANCELLED = auto()
     NOT_FOUND = auto()
-    INVALID=auto()
+    INVALID = auto()
+    FAILURE = auto()
+
+    @property
+    def is_error(self) -> bool:
+        return self in (
+            CommandStatus.NOT_FOUND,
+            CommandStatus.INVALID,
+            CommandStatus.FAILURE,
+        )

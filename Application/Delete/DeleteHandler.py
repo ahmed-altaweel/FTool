@@ -3,7 +3,7 @@ from Application.Common.TargetResolverPort import TargetResolverPort
 from Application.Delete.DeleteExecutor import DeleteExecutor
 from Application.Delete.DeleteRequest import DeleteRequest
 from Application.Delete.DeleteResult import DeleteResult
-from Infrastructure.FileSystem.Reolver.TargetResolver import TargetResolver
+from Infrastructure.FileSystem.Resolver.TargetResolver import TargetResolver
 
 
 # Architecture: Delete command handler.
