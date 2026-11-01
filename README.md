@@ -95,5 +95,4 @@ Bootstrap          تجميع الوحدات (Delete/Archive module builders)
 tests              اختبارات unittest
 ```
 
-## الترخيص
-أضف ملف `LICENSE` (مثل MIT) قبل النشر العام إن أردت السماح للآخرين باستخدام الكود.
+
