@@ -24,6 +24,9 @@ from Application.Common.Result import CommandResult
 from Bootstrap.ModulesBuilder.CopyModuleBuilder import CopyModuleBuilder 
 from Presentation.CLI.Parsers.CopyParser import CopyParserBuilder  
 
+from Bootstrap.ModulesBuilder.RestoreModuleBuilder import RestoreModuleBuilder
+from Presentation.CLI.Parsers.RestoreParser import RestoreParserBuilder
+
 def main(argv: list[str] | None = None) -> int:
     parser = (
         ParserBuilder()
@@ -33,9 +36,10 @@ def main(argv: list[str] | None = None) -> int:
         .add(MoveParserBuilder)
         .add(CopyParserBuilder)
         .add(CreateParserBuilder)
+        .add(RestoreParserBuilder())
         .build()
     )
-
+    
     request_factory = RequestFactory()
     formatters: dict[type[CommandResult], ResultFormatter] = {}
     application = (
@@ -45,12 +49,18 @@ def main(argv: list[str] | None = None) -> int:
         .add_command(CopyModuleBuilder())  
         .add_command(CreateModuleBuilder())
         .add_command(MoveModuleBuilder())
+        .add_command(RestoreModuleBuilder())
         .add_command(ArchiveModuleBuilder())
         .build()
     )
 
 
+   
+
+
     application.run(parser.parse_args())
+
+
 
 
 

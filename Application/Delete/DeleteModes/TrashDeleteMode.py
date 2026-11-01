@@ -1,4 +1,5 @@
 from datetime import datetime
+import os
 from pathlib import Path
 
 from Application.Delete.DeleteModes.base import DeleteMode
@@ -19,7 +20,7 @@ class TrashDeleteMode(DeleteMode):
         trashed_path = target_handler.delete_to_trash(path)
         self.trash_registry.record(
             TrashEntry(
-                original_path=str(path),
+                original_path=os.path.abspath(path),
                 trashed_path=str(trashed_path),
                 deleted_at=datetime.now(),
             )

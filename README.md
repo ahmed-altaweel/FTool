@@ -82,17 +82,7 @@ ftool del --final f.txt    # حذف نهائي
 
 ## الاختبارات
 ```bash
-python -m unittest discover -s tests -v
+ftool del -r my_folder
 ```
 
-## هيكل المشروع
-```
-Presentation/CLI   الأوامر: parsers, request creators, formatters, main
-Application        حالات الاستخدام (Delete, Archive) والعقود المجردة
-Domain             كيانات السلة
-Infrastructure     التنفيذ: ZipEngine, RarEngine, ماسح الملفات, الطرفية, السلة
-Bootstrap          تجميع الوحدات (Delete/Archive module builders)
-tests              اختبارات unittest
-```
-
-
+> **ملاحظة:** يجب تنفيذ أوامر `ftool` من Terminal بعد تثبيت المشروع باستخدام `pip install -e .`.
